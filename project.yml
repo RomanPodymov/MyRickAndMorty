@@ -8,6 +8,9 @@ packages:
   Kingfisher:
     url: https://github.com/onevcat/Kingfisher
     version: 7.1.2
+  CombineMoya:
+    url: https://github.com/Moya/Moya
+    version: 15.0.0
 targets:
   MyRickAndMortyApp:
     type: application
@@ -15,8 +18,12 @@ targets:
     sources: [MyRickAndMorty]
     dependencies:
       - package: Kingfisher
+      - package: CombineMoya
     info:
       path: MyRickAndMorty/Info.plist
+    preBuildScripts:
+      - script: "mint run swiftgen"
+        name: SwiftGen
     postCompileScripts:
       - script: "mint run swiftformat . --swiftversion 5.5"
         name: SwiftFormat

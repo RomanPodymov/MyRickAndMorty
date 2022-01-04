@@ -1,0 +1,6 @@
+strings:
+  inputs:
+    - MyRickAndMorty/en.lproj
+  outputs:
+    - templateName: structured-swift5
+      output: MyRickAndMorty/Generated/Strings.swift

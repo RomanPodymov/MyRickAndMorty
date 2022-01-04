@@ -1,0 +1,9 @@
+/* 
+  Localizable.strings
+  MyRickAndMorty
+
+  Created by Roman Podymov on 04.01.2022.
+
+*/
+
+"characters_screen.title" = "Characters";

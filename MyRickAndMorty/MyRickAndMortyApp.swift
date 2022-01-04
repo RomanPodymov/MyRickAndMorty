@@ -10,11 +10,11 @@ import SwiftUI
 
 @main
 struct MyRickAndMortyApp: App {
-    var myRickAndMortyWebService = MyRickAndMortyWebService()
+    var myRickAndMortyObservableObject = MyRickAndMortyObservableObject()
 
     var body: some Scene {
         WindowGroup {
-            CharactersScreen().environmentObject(myRickAndMortyWebService)
+            CharactersScreen().environmentObject(myRickAndMortyObservableObject)
         }
     }
 }

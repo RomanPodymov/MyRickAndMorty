@@ -8,35 +8,37 @@
 
 import Combine
 import Foundation
+import Moya
 
-final class MyRickAndMortyWebService: ObservableObject {
-    @Published var charactersData: CharactersData?
+enum MyRickAndMortyWebService {
+    case characters
+}
 
-    private var cancellableSet = Set<AnyCancellable>()
+extension MyRickAndMortyWebService: TargetType {
+    var baseURL: URL { URL(string: "https://rickandmortyapi.com/api")! }
 
-    func loadCharactersData() {
-        let request = URLRequest(url: URL(string: "https://rickandmortyapi.com/api/character")!)
-        URLSession.shared.dataTaskPublisher(
-            for: request
-        ).tryMap { responseAndData -> Data in
-            guard let httpResponse = responseAndData.response as? HTTPURLResponse,
-                  httpResponse.statusCode == 200
-            else {
-                throw URLError(.badServerResponse)
-            }
-            return responseAndData.data
+    var path: String {
+        switch self {
+        case .characters:
+            return "character"
         }
-        .decode(
-            type: CharactersData.self, decoder: JSONDecoder()
-        ).sink(
-            receiveCompletion: { _ in
+    }
 
-            },
-            receiveValue: { [weak self] value in
-                DispatchQueue.main.async {
-                    self?.charactersData = value
-                }
-            }
-        ).store(in: &cancellableSet)
+    var method: Moya.Method {
+        switch self {
+        case .characters:
+            return .get
+        }
+    }
+
+    var task: Task {
+        switch self {
+        case .characters:
+            return .requestPlain
+        }
+    }
+
+    var headers: [String: String]? {
+        nil
     }
 }
