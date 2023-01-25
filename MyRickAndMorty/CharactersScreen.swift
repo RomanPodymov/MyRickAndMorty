@@ -9,6 +9,15 @@
 import Kingfisher
 import SwiftUI
 
+private struct CharacterData {
+    let id: Int
+    let image: KFImage
+    let name: String
+    let status: String
+}
+
+extension CharacterData: Identifiable {}
+
 struct CharactersScreen: View {
     @EnvironmentObject var myRickAndMortyObservableObject: MyRickAndMortyObservableObject
 
@@ -20,29 +29,11 @@ struct CharactersScreen: View {
                     .bold()
 
                 VStack(alignment: .leading) {
-                    ForEach(myRickAndMortyObservableObject.charactersData?.results ?? []) { data in
+                    ForEach(charactersData) { data in
                         NavigationLink(
-                            destination: KFImage(
-                                URL(string: data.image ?? "")!
-                            ).resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 50, height: 50)
-                                .clipShape(Circle())
+                            destination: detailScreen(data: data)
                         ) {
-                            HStack(alignment: .top) {
-                                KFImage(URL(string: data.image ?? "")!).resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: 50, height: 50)
-                                    .clipShape(Circle())
-                                VStack(alignment: .leading) {
-                                    Text(data.name ?? "").font(.headline).foregroundColor(.black)
-                                    Text(data.status ?? "").font(.body).foregroundColor(.black)
-                                }
-                            }
-                            .frame(width: 300, alignment: .leading)
-                            .padding()
-                            .background(Color(white: 0.5))
-                            .cornerRadius(20)
+                            row(data: data)
                         }
                     }
                 }
@@ -53,6 +44,37 @@ struct CharactersScreen: View {
             }
         }
     }
-}
 
-extension Results: Identifiable {}
+    private var charactersData: [CharacterData] {
+        (myRickAndMortyObservableObject.charactersData?.results ?? []).compactMap { data in
+            guard let url = URL(string: data.image ?? "") else {
+                return nil
+            }
+            return .init(id: data.id ?? 0, image: KFImage(url), name: data.name ?? "", status: data.status ?? "")
+        }
+    }
+
+    private func row(data: CharacterData) -> some View {
+        HStack(alignment: .top) {
+            data.image.resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 50, height: 50)
+                .clipShape(Circle())
+            VStack(alignment: .leading) {
+                Text(data.name).font(.headline).foregroundColor(.black)
+                Text(data.status).font(.body).foregroundColor(.black)
+            }
+        }
+        .frame(width: 300, alignment: .leading)
+        .padding()
+        .background(Color(white: 0.5))
+        .cornerRadius(20)
+    }
+
+    private func detailScreen(data: CharacterData) -> some View {
+        data.image.resizable()
+            .aspectRatio(contentMode: .fill)
+            .frame(width: 50, height: 50)
+            .clipShape(Circle())
+    }
+}
