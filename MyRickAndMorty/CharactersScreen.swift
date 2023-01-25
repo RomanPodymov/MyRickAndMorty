@@ -9,15 +9,6 @@
 import Kingfisher
 import SwiftUI
 
-private struct CharacterData {
-    let id: Int
-    let image: KFImage
-    let name: String
-    let status: String
-}
-
-extension CharacterData: Identifiable {}
-
 struct CharactersScreen: View {
     @EnvironmentObject var myRickAndMortyObservableObject: MyRickAndMortyObservableObject
 
@@ -31,7 +22,7 @@ struct CharactersScreen: View {
                 VStack(alignment: .leading) {
                     ForEach(charactersData) { data in
                         NavigationLink(
-                            destination: detailScreen(data: data)
+                            destination: CharacterScreen().environmentObject(data)
                         ) {
                             row(data: data)
                         }
@@ -69,12 +60,5 @@ struct CharactersScreen: View {
         .padding()
         .background(Color(white: 0.5))
         .cornerRadius(20)
-    }
-
-    private func detailScreen(data: CharacterData) -> some View {
-        data.image.resizable()
-            .aspectRatio(contentMode: .fill)
-            .frame(width: 50, height: 50)
-            .clipShape(Circle())
     }
 }
