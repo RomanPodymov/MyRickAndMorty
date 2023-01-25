@@ -1,0 +1,22 @@
+PODS:
+  - RickAndMorty (1.0.0)
+
+DEPENDENCIES:
+  - RickAndMorty (from `https://github.com/RomanPodymov/ios-task-rick-and-morty.git`, branch `cocoapods`)
+
+EXTERNAL SOURCES:
+  RickAndMorty:
+    :branch: cocoapods
+    :git: https://github.com/RomanPodymov/ios-task-rick-and-morty.git
+
+CHECKOUT OPTIONS:
+  RickAndMorty:
+    :commit: ed6d43d68b90218db0229cae8ee2c75821709ab6
+    :git: https://github.com/RomanPodymov/ios-task-rick-and-morty.git
+
+SPEC CHECKSUMS:
+  RickAndMorty: 494b49858f4bf2830f80f42c3c5165f24e16c945
+
+PODFILE CHECKSUM: 33ec1751b0e3f417d3f5ce37f2c6efaa305c2c07
+
+COCOAPODS: 1.11.3

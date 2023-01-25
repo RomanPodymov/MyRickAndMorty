@@ -7,15 +7,23 @@
 //
 
 import Kingfisher
+import RickAndMorty
 import SwiftUI
 
 struct CharacterScreen: View {
     @EnvironmentObject var data: CharacterData
 
     var body: some View {
-        data.image.resizable()
-            .aspectRatio(contentMode: .fill)
-            .frame(width: 50, height: 50)
-            .clipShape(Circle())
+        ZStack {
+            Image(uiImage: RickAndMortyAssets.hero)
+                .aspectRatio(contentMode: .fit)
+            VStack {
+                data.image.resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 200, height: 200)
+                    .clipShape(Circle())
+                Text(data.name)
+            }
+        }
     }
 }
