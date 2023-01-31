@@ -11,6 +11,9 @@ packages:
   CombineMoya:
     url: https://github.com/Moya/Moya
     version: 15.0.0
+  SwiftUI_CSS:
+    url: https://github.com/hite/SwiftUI-CSS
+    branch: master
 targets:
   MyRickAndMortyApp:
     type: application
@@ -19,6 +22,7 @@ targets:
     dependencies:
       - package: Kingfisher
       - package: CombineMoya
+      - package: SwiftUI_CSS
     info:
       path: MyRickAndMorty/Info.plist
     preBuildScripts:

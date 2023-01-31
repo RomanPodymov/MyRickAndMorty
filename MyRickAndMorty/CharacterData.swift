@@ -14,12 +14,16 @@ final class CharacterData: ObservableObject {
     let image: KFImage
     let name: String
     let status: String
+    let gender: String
+    let species: String
 
-    init(id: Int, image: KFImage, name: String, status: String) {
+    init(id: Int, image: KFImage, name: String, status: String, gender: String, species: String) {
         self.id = id
         self.image = image
         self.name = name
         self.status = status
+        self.gender = gender
+        self.species = species
     }
 }
 

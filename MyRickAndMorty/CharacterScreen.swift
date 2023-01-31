@@ -9,6 +9,7 @@
 import Kingfisher
 import RickAndMorty
 import SwiftUI
+import SwiftUI_CSS
 
 struct CharacterScreen: View {
     @EnvironmentObject var data: CharacterData
@@ -20,9 +21,16 @@ struct CharacterScreen: View {
             VStack {
                 data.image.resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: 200, height: 200)
                     .clipShape(Circle())
+                    .addClassName(Style.characterScreenImage)
                 Text(data.name)
+                    .addClassName(Style.characterScreenLabel)
+                Text(data.status)
+                    .addClassName(Style.characterScreenLabel)
+                Text(data.gender)
+                    .addClassName(Style.characterScreenLabel)
+                Text(data.species)
+                    .addClassName(Style.characterScreenLabel)
             }
         }
     }

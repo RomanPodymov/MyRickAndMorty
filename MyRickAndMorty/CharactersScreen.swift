@@ -8,6 +8,7 @@
 
 import Kingfisher
 import SwiftUI
+import SwiftUI_CSS
 
 struct CharactersScreen: View {
     @EnvironmentObject var myRickAndMortyObservableObject: MyRickAndMortyObservableObject
@@ -16,8 +17,8 @@ struct CharactersScreen: View {
         NavigationView {
             ScrollView {
                 Text(L10n.CharactersScreen.title)
-                    .font(.title)
                     .bold()
+                    .addClassName(Style.charactersScreenTitle)
 
                 VStack(alignment: .leading) {
                     ForEach(charactersData) { data in
@@ -41,7 +42,14 @@ struct CharactersScreen: View {
             guard let url = URL(string: data.image ?? "") else {
                 return nil
             }
-            return .init(id: data.id ?? 0, image: KFImage(url), name: data.name ?? "", status: data.status ?? "")
+            return .init(
+                id: data.id ?? 0,
+                image: KFImage(url),
+                name: data.name ?? "",
+                status: data.status ?? "",
+                gender: data.gender ?? "",
+                species: data.species ?? ""
+            )
         }
     }
 }

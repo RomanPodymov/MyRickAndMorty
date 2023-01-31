@@ -8,24 +8,24 @@
 
 import Kingfisher
 import SwiftUI
+import SwiftUI_CSS
 
 struct CharacterRow: View {
     @EnvironmentObject var data: CharacterData
 
     var body: some View {
-        HStack(alignment: .top) {
+        HStack(alignment: .center) {
             data.image.resizable()
                 .aspectRatio(contentMode: .fill)
-                .frame(width: 50, height: 50)
                 .clipShape(Circle())
+                .addClassName(Style.charactersScreenRowImage)
             VStack(alignment: .leading) {
-                Text(data.name).font(.headline).foregroundColor(.black)
-                Text(data.status).font(.body).foregroundColor(.black)
+                Text(data.name)
+                    .addClassName(Style.charactersScreenRowTitle)
+                Text(data.status)
+                    .addClassName(Style.charactersScreenRowDescription)
             }
         }
-        .frame(width: 300, alignment: .leading)
-        .padding()
-        .background(Color(white: 0.5))
-        .cornerRadius(20)
+        .addClassName(Style.charactersScreenRow)
     }
 }
