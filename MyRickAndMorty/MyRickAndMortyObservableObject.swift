@@ -17,25 +17,33 @@ final class MyRickAndMortyObservableObject: ObservableObject {
     private var cancellableSet = Set<AnyCancellable>()
 
     func loadCharactersData() {
-        let provider = MoyaProvider<MyRickAndMortyWebService>()
-        provider.requestPublisher(.characters)
-            .tryMap { responseAndData -> Data in
-                guard let httpResponse = responseAndData.response,
-                      httpResponse.statusCode == 200
-                else {
-                    throw URLError(.badServerResponse)
-                }
-                return responseAndData.data
-            }
-            .decode(
-                type: CharactersData.self, decoder: JSONDecoder()
-            ).sink(
-                receiveCompletion: { _ in
+        let providerAndRequest = Self.makeRequest()
+        providerAndRequest.1.sink(
+            receiveCompletion: { _ in
 
-                },
-                receiveValue: { [weak self] value in
-                    self?.charactersData = value
+            },
+            receiveValue: { [weak self] value in
+                self?.charactersData = value
+            }
+        ).store(in: &cancellableSet)
+    }
+
+    static func makeRequest() -> (Any, AnyPublisher<CharactersData, any Error>) {
+        let provider = MoyaProvider<MyRickAndMortyWebService>()
+        return (
+            provider, provider.requestPublisher(.characters)
+                .tryMap { responseAndData -> Data in
+                    guard let httpResponse = responseAndData.response,
+                          httpResponse.statusCode == 200
+                    else {
+                        throw URLError(.badServerResponse)
+                    }
+                    return responseAndData.data
                 }
-            ).store(in: &cancellableSet)
+                .decode(
+                    type: CharactersData.self, decoder: JSONDecoder()
+                )
+                .eraseToAnyPublisher()
+        )
     }
 }

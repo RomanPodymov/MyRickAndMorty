@@ -5,4 +5,8 @@ target 'MyRickAndMortyApp' do
 
   pod 'RickAndMorty', :git => 'https://github.com/RomanPodymov/ios-task-rick-and-morty.git', :branch => 'cocoapods'
 
+  target 'MyRickAndMortyTests' do
+    inherit! :search_paths
+  end
+
 end

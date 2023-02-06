@@ -14,6 +14,9 @@ packages:
   SwiftUI_CSS:
     url: https://github.com/hite/SwiftUI-CSS
     branch: master
+  ViewInspector:
+    url: https://github.com/nalexn/ViewInspector
+    version: 0.9.5
 targets:
   MyRickAndMortyApp:
     type: application
@@ -33,3 +36,12 @@ targets:
         name: SwiftFormat
       - script: "mint run swiftlint"
         name: SwiftLint
+  MyRickAndMortyTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: [MyRickAndMortyTests]
+    dependencies:
+      - target: MyRickAndMortyApp
+      - package: ViewInspector
+    info:
+      path: MyRickAndMortyTests/Info.plist
