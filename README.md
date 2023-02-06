@@ -9,4 +9,4 @@ See [this page](https://github.com/RomanPodymov/ios-task-rick-and-morty/tree/coc
 3. Run `mint bootstrap && mint run xcodegen`.
 4. Run `bundle install && bundle exec pod install`.
 6. Open **MyRickAndMorty.xcworkspace** in Xcode.
-7. Run **MyRickAndMorty**.
+7. Run **MyRickAndMortyApp**.
