@@ -7,10 +7,10 @@ options:
 packages:
   Kingfisher:
     url: https://github.com/onevcat/Kingfisher
-    version: 7.1.2
+    version: 7.10.0
   CombineMoya:
     url: https://github.com/Moya/Moya
-    version: 15.0.0
+    version: 15.0.3
   SwiftUI_CSS:
     url: https://github.com/hite/SwiftUI-CSS
     branch: master
